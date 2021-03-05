@@ -35,6 +35,7 @@ RUN pip3 install -r haproxy-wi/requirements.txt
 # allow python files to be executed
 RUN chmod +x haproxy-wi/app/*.py 
 
+RUN echo burn in hell you github bstrds for replacing environment variables in scripts - mask ur mum sckrs
 # copy logrotate and syslog config files
 RUN cp haproxy-wi/config_other/logrotate/* /etc/logrotate.d/
 RUN cp haproxy-wi/config_other/syslog/* /etc/rsyslog.d/

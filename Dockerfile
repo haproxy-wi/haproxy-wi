@@ -37,13 +37,12 @@ RUN chmod +x haproxy-wi/app/*.py
 
 RUN echo burn in hell you github bstrds for replacing environment variables in scripts - mask ur mum sckrs
 # copy logrotate and syslog config files
-RUN cp haproxy-wi/config_other/logrotate/* /etc/logrotate.d/
-RUN cp haproxy-wi/config_other/syslog/* /etc/rsyslog.d/
+RUN mkdir -p /etc/logrotate.d/ /etc/rsyslog.d/ &&  cp haproxy-wi/config_other/logrotate/* /etc/logrotate.d/ && cp haproxy-wi/config_other/syslog/* /etc/rsyslog.d/
 
-# reload services
-RUN systemctl daemon-reload  
-RUN systemctl restart apache2
-RUN systemctl restart rsyslog
+### ##DAFUQ?# reload services
+###  RUN systemctl daemon-reload  
+###  RUN systemctl restart apache2
+###  RUN systemctl restart rsyslog
 
 # create needed folders
 RUN mkdir /var/www/haproxy-wi/app/certs /var/www/haproxy-wi/keys /var/www/haproxy-wi/configs/ /var/www/haproxy-wi/configs/hap_config/ /var/www/haproxy-wi/configs/kp_config/ /var/www/haproxy-wi/configs/nginx_config/ /var/www/haproxy-wi/log/

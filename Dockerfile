@@ -11,7 +11,7 @@
 #    libpng-dev libqhull-dev libfreetype6-dev libagg-dev pkg-config -y
 
 FROM alpine 
-RUN apk add dos2unix apache2 py3-pip libc6-compat rsync gcc git g++ freetype-dev && pip3 install matplotlib paramiko-ng configparser Cython
+RUN apk add dos2unix apache2 cython py3-pip py3-matplotlib libc6-compat rsync gcc git g++ freetype-dev && pip3 install matplotlib paramiko-ng configparser Cython
 
 # chg folder
 WORKDIR /var/www/

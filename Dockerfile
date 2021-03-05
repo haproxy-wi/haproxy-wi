@@ -19,7 +19,7 @@ RUN apk add git && git clone https://github.com/Aidaho12/haproxy-wi.git /var/www
 WORKDIR /var/www/
 
 
-RUN apk add dos2unix apache2 cython py3-pip py3-matplotlib libc6-compat rsync gcc git g++ freetype-dev
+RUN apk add dos2unix apache2 cython py3-pip python3-dev py3-matplotlib libc6-compat rsync gcc git g++ freetype-dev
 # copy Apache config file and enable needed mods
 RUN cp /var/www/haproxy-wi/config_other/httpd/* /etc/apache2/sites-available/
 

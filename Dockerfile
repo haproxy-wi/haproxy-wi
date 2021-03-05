@@ -45,7 +45,7 @@ RUN mkdir -p /etc/logrotate.d/ /etc/rsyslog.d/ &&  cp haproxy-wi/config_other/lo
 ###  RUN systemctl restart rsyslog
 
 # create needed folders
-RUN mkdir /var/www/haproxy-wi/app/certs /var/www/haproxy-wi/keys /var/www/haproxy-wi/configs/ /var/www/haproxy-wi/configs/hap_config/ /var/www/haproxy-wi/configs/kp_config/ /var/www/haproxy-wi/configs/nginx_config/ /var/www/haproxy-wi/log/
+RUN mkdir -p /var/www/haproxy-wi/app/certs /var/www/haproxy-wi/keys /var/www/haproxy-wi/configs/ /var/www/haproxy-wi/configs/hap_config/ /var/www/haproxy-wi/configs/kp_config/ /var/www/haproxy-wi/configs/nginx_config/ /var/www/haproxy-wi/log/
 
 RUN chown -R www-data:www-data /var/www/haproxy-wi/
 

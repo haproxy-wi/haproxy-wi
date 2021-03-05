@@ -52,6 +52,6 @@ RUN chown -R www-data:www-data /var/www/haproxy-wi/
 WORKDIR /var/www/haproxy-wi/app
 
 # create database
-RUN cd /var/www/haproxy-wi/app && python create_db.py
+RUN /bin/bash -c "cd /var/www/haproxy-wi/app && python create_db.py"
 
 RUN chown -R www-data:www-data /var/www/haproxy-wi/

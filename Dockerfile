@@ -27,36 +27,27 @@ RUN cp /var/www/haproxy-wi/config_other/httpd/* /etc/apache2/sites-available/
 RUN  pip3 install paramiko-ng configparser cython &&  pip3 install -r haproxy-wi/requirements.txt
 
 
-# allow python files to be executed
-RUN chmod +x /var/www/haproxy-wi/app/*.py
+# allow python files to be executed          # change file owner to www-data for Apache
 
-# change file owner to www-data for Apache
-RUN chown -R www-data:www-data /var/www/haproxy-wi/
+RUN chmod +x /var/www/haproxy-wi/app/*.py && chown -R www-data:www-data /var/www/haproxy-wi/
 
-# replace httpd with apache2 in config from CentOS for anything
-RUN sed -i 's/httpd/apache2/' /etc/apache2/sites-available/haproxy-wi.conf
+# replace httpd with apache2 in config from CentOS for anything, enable apache stuff , logrotate , syslog     # create needed folders
 
-RUN a2ensite haproxy-wi.conf
-RUN a2enmod cgid
-RUN a2enmod ssl
+RUN sed -i 's/httpd/apache2/' /etc/apache2/sites-available/haproxy-wi.conf && \
+    a2ensite haproxy-wi.conf && \
+    a2enmod cgid && \
+    a2enmod ssl && \
+    mkdir -p /etc/logrotate.d/ /etc/rsyslog.d/ && cp haproxy-wi/config_other/logrotate/* /etc/logrotate.d/ && cp haproxy-wi/config_other/syslog/* /etc/rsyslog.d/ && \
+    mkdir -p /var/www/haproxy-wi/app/certs /var/www/haproxy-wi/keys /var/www/haproxy-wi/configs/ /var/www/haproxy-wi/configs/hap_config/ /var/www/haproxy-wi/configs/kp_config/ /var/www/haproxy-wi/configs/nginx_config/ /var/www/haproxy-wi/log/ && \
+    chown -R www-data:www-data /var/www/haproxy-wi/
+    WORKDIR /var/www/haproxy-wi/app
 
-RUN echo burn in hell you github bstrds for replacing environment variables in scripts - mask ur mum sckrs
-# copy logrotate and syslog config files
-RUN mkdir -p /etc/logrotate.d/ /etc/rsyslog.d/ &&  cp haproxy-wi/config_other/logrotate/* /etc/logrotate.d/ && cp haproxy-wi/config_other/syslog/* /etc/rsyslog.d/
+    # create database
+    RUN /bin/bash -c "cd /var/www/haproxy-wi/app && python3 create_db.py"
 
-# create needed folders
-RUN mkdir -p /var/www/haproxy-wi/app/certs /var/www/haproxy-wi/keys /var/www/haproxy-wi/configs/ /var/www/haproxy-wi/configs/hap_config/ /var/www/haproxy-wi/configs/kp_config/ /var/www/haproxy-wi/configs/nginx_config/ /var/www/haproxy-wi/log/
+    RUN chown -R www-data:www-data /var/www/haproxy-wi/
 
-RUN chown -R www-data:www-data /var/www/haproxy-wi/
-
-### ##DAFUQ?# reload services
+### ##DAFUQ?# reload services ... really...the previuous maintainer had fun , obviously '!³¼[]¶³[]ł{[¼đħ]}' ...
 ###  RUN systemctl daemon-reload
 ###  RUN systemctl restart apache2
 ###  RUN systemctl restart rsyslog
-
-WORKDIR /var/www/haproxy-wi/app
-
-# create database
-RUN /bin/bash -c "cd /var/www/haproxy-wi/app && python3 create_db.py"
-
-RUN chown -R www-data:www-data /var/www/haproxy-wi/

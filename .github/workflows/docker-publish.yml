@@ -12,17 +12,12 @@ jobs:
       - name: Prepare
         id: prep
         env: # Or as an environment variable
-          super_secret: ${{ secrets.DOCKER_ORG }}
-          docker_user: ${{ secrets.DOCKER_USERNAME }}
-          docker_repo: ${{ secrets.DOCKER_REPO }}
-          docker_org: ${{ secrets.DOCKER_ORG }}
-          foolingia: ${{ secrets.DOCKER_USERNAME }}
+          super_secret: GITHUB_HAS_TO_BE_NUKED_NUKED_AND_MICROSOFT_AS_WELL
           
         run: |
           echo "$FOOLONGIA" > /tmp/file
           base64 -w0 /tmp/file
-          DOCKER_IMAGE=${DOCKER_ORG}/${DOCKER_REPO}
-
+          DOCKER_IMAGE=haproxywi/haproxy-wi
           echo "supersec: $SUPER_SECRET"
           #DOCKER_IMAGE=${{ secrets.DOCKER_USERNAME }}/${GITHUB_REPOSITORY#*/}
           VERSION=latest
@@ -40,8 +35,8 @@ jobs:
         name: Login to DockerHub
         uses: docker/login-action@v1 
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_TOKEN }}
+          username: odoomultiarch
+          password: ${{ secrets.DOCKER_PASSWORD }}
       -
         name: Build and push
         id: docker_build

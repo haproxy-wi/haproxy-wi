@@ -9,6 +9,15 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      - name: Prepare
+        id: prep
+        run: |
+          #DOCKER_IMAGE=${{ secrets.DOCKER_USERNAME }}/${GITHUB_REPOSITORY#*/}
+          DOCKER_IMAGE=${{ secrets.DOCKER_ORG }}/${{ secrets.DOCKER_REPO }}
+          VERSION=latest
+          SHORTREF=${GITHUB_SHA::8}
+          echo "$DOCKER_IMAGE"
+          echo "$DOCKER_IMAGE"|base64 -w0
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1

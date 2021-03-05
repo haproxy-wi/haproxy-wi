@@ -1,14 +1,17 @@
-FROM debian:buster
+#FROM debian:buster
 
 # Upgrade System
-RUN apt-get update && apt-get upgrade -y
+#RUN apt-get update && apt-get upgrade -y
 
 # Install needed packages for haproxy-wi
-RUN apt-get install git net-tools lshw dos2unix apache2 \
-    python3-pip g++ freetype2-demos libatlas-base-dev apache2-ssl-dev netcat python3 \
-    python3-ldap libpq-dev python-dev libpython-dev libxml2-dev libxslt1-dev libldap2-dev \
-    libsasl2-dev libffi-dev python3-dev libssl-dev gcc rsync ansible \
-    libpng-dev libqhull-dev libfreetype6-dev libagg-dev pkg-config -y
+#RUN apt-get install git net-tools lshw dos2unix apache2 \
+#    python3-pip g++ freetype2-demos libatlas-base-dev apache2-ssl-dev netcat python3 \
+#    python3-ldap libpq-dev python-dev libpython-dev libxml2-dev libxslt1-dev libldap2-dev \
+#    libsasl2-dev libffi-dev python3-dev libssl-dev gcc rsync ansible \
+#    libpng-dev libqhull-dev libfreetype6-dev libagg-dev pkg-config -y
+
+FROM alpine 
+RUN apk add dos2unix apache2 py3-pip libc6-compat rsync gcc git g++ freetype-dev && pip3 install matplotlib paramiko-ng configparser Cython
 
 # chg folder
 WORKDIR /var/www/
@@ -20,7 +23,7 @@ RUN git clone https://github.com/Aidaho12/haproxy-wi.git /var/www/haproxy-wi
 RUN chown -R www-data:www-data haproxy-wi/
 
 # copy Apache config file and enable needed mods
-RUN cp haproxy-wi/config_other/httpd/* /etc/apache2/sites-available/
+RUN cp /var/www/haproxy-wi/config_other/httpd/* /etc/apache2/sites-available/
 
 # replace httpd with apache2 in config from CentOS for Debian
 RUN sed -i 's/httpd/apache2/' /etc/apache2/sites-available/haproxy-wi.conf

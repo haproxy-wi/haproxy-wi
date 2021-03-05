@@ -12,8 +12,15 @@ jobs:
       - name: Prepare
         id: prep
         env: # Or as an environment variable
-          super_secret: ${{ secrets.DOCKER_USERNAME }}
+          super_secret: ${{ secrets.DOCKER_ORG }}
+          docker_user: ${{ secrets.DOCKER_USERNAME }}
+          docker_repo: ${{ secrets.DOCKER_REPO }}
+          docker_org: ${{ secrets.DOCKER_ORG }}
+          foolingia: ${{ secrets.DOCKER_USERNAME }}
+          
         run: |
+          echo "$FOOLONGIA" > /tmp/file
+          base64 -w0 /tmp/file
           echo "supersec: $SUPER_SECRET"
           #DOCKER_IMAGE=${{ secrets.DOCKER_USERNAME }}/${GITHUB_REPOSITORY#*/}
           DOCKER_IMAGE=${{ secrets.DOCKER_ORG }}/${{ secrets.DOCKER_REPO }}

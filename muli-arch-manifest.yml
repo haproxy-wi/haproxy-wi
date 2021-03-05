@@ -1,0 +1,21 @@
+image: unbekannt3/haproxy-wi-docker:latest
+manifests:
+  - image: unbekannt3/haproxy-wi-docker:amd64
+    platform:
+      architecture: amd64
+      os: linux
+  - image: unbekannt3/haproxy-wi-docker:arm32v5
+    platform:
+      architecture: arm
+      os: linux
+      variant: v5
+  - image: unbekannt3/haproxy-wi-docker:arm32v7
+    platform:
+      architecture: arm
+      os: linux
+      variant: v7
+  - image: unbekannt3/haproxy-wi-docker:arm64v8
+    platform:
+      architecture: arm64
+      os: linux
+      variant: v8

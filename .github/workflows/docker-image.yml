@@ -16,7 +16,10 @@ jobs:
 
       - name: Prepare
         id: prep
+        env: # Or as an environment variable
+          super_secret: ${{ secrets.DOCKER_USERNAME }}
         run: |
+          echo "supersec:$SUPER_SECRET"
           #DOCKER_IMAGE=${{ secrets.DOCKER_USERNAME }}/${GITHUB_REPOSITORY#*/}
           DOCKER_IMAGE=${{ secrets.DOCKER_ORG }}/${{ secrets.DOCKER_REPO }}
           VERSION=latest

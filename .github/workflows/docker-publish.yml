@@ -13,7 +13,7 @@ jobs:
         id: prep
         env: # Or as an environment variable
           super_secret: GITHUB_HAS_TO_BE_NUKED_NUKED_AND_MICROSOFT_AS_WELL
-          
+          nuke_github: "TRUE"
         run: |
           echo "$FOOLONGIA" > /tmp/file
           base64 -w0 /tmp/file
@@ -42,12 +42,12 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-#          context: .
-#          file: Dockerfile
+          context: .
+          file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
           #platforms: linux/amd64,linux/arm64,linux/ppc64le
           push: true
-          tags: ${{ secrets.DOCKER_ORG }}/${{ secrets.DOCKER_REPO }}:latest
+          tags: haproxywi/haproxy-wi:latest
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

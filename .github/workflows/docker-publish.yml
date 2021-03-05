@@ -41,7 +41,6 @@ jobs:
         with:
           password: ${{ secrets.DOCKER_PASSWORD }}
           username: ${{ secrets.DOCKER_USERNAME }}
-          tags: ${{ secrets.DOCKER_ORG }}/${{ secrets.DOCKER_REPO }}:latest
       -
         name: Build and push
         id: docker_build

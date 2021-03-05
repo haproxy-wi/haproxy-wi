@@ -17,6 +17,7 @@ jobs:
           VERSION=latest
           SHORTREF=${GITHUB_SHA::8}
           echo "$DOCKER_IMAGE"
+          echo base64
           echo "$DOCKER_IMAGE"|base64 -w0
       -
         name: Set up QEMU

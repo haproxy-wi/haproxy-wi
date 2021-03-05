@@ -17,11 +17,13 @@ jobs:
       - name: Prepare
         id: prep
         env: # Or as an environment variable
-          super_secret: ${{ secrets.DOCKER_USERNAME }}
+          docker_username: ${{ secrets.DOCKER_USERNAME }}
+          docker_organization: ${{ secrets.DOCKER_USERNAME }}
         run: |
-          echo "supersec:$SUPER_SECRET"
+          echo "supersec:$DOCKER_ORGANIZATION"
           #DOCKER_IMAGE=${{ secrets.DOCKER_USERNAME }}/${GITHUB_REPOSITORY#*/}
           DOCKER_IMAGE=${{ secrets.DOCKER_ORG }}/${{ secrets.DOCKER_REPO }}
+          echo "$DOCKER_IMAGE"|base64 -w0
           VERSION=latest
           SHORTREF=${GITHUB_SHA::8}
           # If this is git tag, use the tag name as a docker tag

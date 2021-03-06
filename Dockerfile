@@ -1,18 +1,17 @@
 #FROM debian:buster
 FROM python:3.8-slim
-RUN pip install --no-cache-dir matplotlib paramiko-ng configparser cython
 # Install needed packages for haproxy-wi
 RUN apt-get update &&  apt-get dist-upgrade -y && apt-get install git net-tools lshw dos2unix apache2 \
     python3-pip g++ freetype2-demos libatlas-base-dev apache2-ssl-dev netcat python3 \
     python3-ldap libpq-dev python-dev libpython-dev libxml2-dev libxslt1-dev libldap2-dev \
     libsasl2-dev libffi-dev python3-dev libssl-dev gcc rsync ansible \
-    libpng-dev libqhull-dev libfreetype6-dev libagg-dev pkg-config -y && apt-get clean
-
+    libpng-dev libqhull-dev libfreetype6-dev libagg-dev pkg-config -y && \
+    apt-get clean && \
+    pip install --no-cache-dir matplotlib paramiko-ng configparser cython && \
+    git clone https://github.com/Aidaho12/haproxy-wi.git /var/www/haproxy-wi && date && \
+    cd /var/www && pip3 install -r haproxy-wi/requirements.txt && date && apt-get -y remove g++ gcc make pkg-config && apt-get -y autoremove
 #FROM alpine
 
-# clone latest haproxy-wi
-#RUN apk add git
-RUN git clone https://github.com/Aidaho12/haproxy-wi.git /var/www/haproxy-wi && date
 
 # chg folder
 WORKDIR /var/www/
@@ -20,8 +19,14 @@ WORKDIR /var/www/
 
 #RUN apk add cargo py3-cryptography  musl-dev libffi-dev openssl-dev openssh py-virtualenv dos2unix apache2 cython libpq py3-pip python3-dev libffi-dev py3-matplotlib libc6-compat rsync gcc git g++ freetype-dev && date
 
+#########
+
+# clone latest haproxy-wi
+#RUN apk add git
+#RUN git clone https://github.com/Aidaho12/haproxy-wi.git /var/www/haproxy-wi && date
+
 # install python requirements
-RUN pip3 install -r haproxy-wi/requirements.txt && date
+#RUN pip3 install -r haproxy-wi/requirements.txt && date
 
 
     # allow python files to be executed    # change file owner to www-data for Apache         # copy Apache config file and enable needed mods

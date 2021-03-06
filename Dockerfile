@@ -19,7 +19,7 @@ RUN apk add git && git clone https://github.com/Aidaho12/haproxy-wi.git /var/www
 WORKDIR /var/www/
 
 
-RUN apk add dos2unix apache2 cython py3-pip python3-dev libffi-dev py3-matplotlib libc6-compat rsync gcc git g++ freetype-dev
+RUN apk add cargo py3-cryptography musl-dev libffi-dev openssl-dev openssh py-virtualenv dos2unix apache2 cython libpq py3-pip python3-dev libffi-dev py3-matplotlib libc6-compat rsync gcc git g++ freetype-dev
 
 # install python requirements
 RUN  pip3 install paramiko-ng configparser cython &&  pip3 install -r haproxy-wi/requirements.txt

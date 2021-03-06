@@ -1,7 +1,7 @@
 #FROM debian:buster
 
 #FROM alpine
-#RUN apk add cargo py3-cryptography  musl-dev libffi-dev openssl-dev openssh py-virtualenv dos2unix apache2 cython libpq py3-pip python3-dev libffi-dev py3-matplotlib libc6-compat rsync gcc git g++ freetype-dev && date
+#RUN apk add socat cargo py3-cryptography  musl-dev libffi-dev openssl-dev openssh py-virtualenv dos2unix apache2 cython libpq py3-pip python3-dev libffi-dev py3-matplotlib libc6-compat rsync gcc git g++ freetype-dev && date
 # install python requirements
 #RUN pip3 install -r haproxy-wi/requirements.txt && date
 
@@ -9,7 +9,7 @@
 
 FROM python:3.8-slim
 # Install needed packages for haproxy-wi
-RUN apt-get update &&  apt-get dist-upgrade -y && apt-get install git net-tools lshw dos2unix apache2 \
+RUN apt-get update &&  apt-get dist-upgrade -y && apt-get install socat git net-tools lshw dos2unix apache2 \
     python3-pip python3-matplotlib g++ freetype2-demos libatlas-base-dev apache2-ssl-dev netcat python3 \
     python3-ldap libpq-dev python-dev libpython-dev libxml2-dev libxslt1-dev libldap2-dev \
     libsasl2-dev libffi-dev python3-dev libssl-dev fail2ban gcc rsync ansible \
@@ -45,11 +45,11 @@ RUN sed -i 's/httpd/apache2/' /etc/apache2/sites-available/haproxy-wi.conf && \
     chown -R www-data:www-data /var/www/haproxy-wi/
 WORKDIR /var/www/haproxy-wi/app
 
-    # create database
-    RUN /bin/bash -c "cd /var/www/haproxy-wi/app && python3 create_db.py"
+# create database
+RUN /bin/bash -c "cd /var/www/haproxy-wi/app && python3 create_db.py"
 
 ### ##DAFUQ?# reload services ... really...the previuous maintainer had fun , obviously '!³¼[]¶³[]ł{[¼đħ]}' ...
 ###  RUN systemctl daemon-reload
 ###  RUN systemctl restart apache2
 ###  RUN systemctl restart rsyslog
-ENTRYPOINT /bin/bash -c "systemctl daemon-reload  ; systemctl restart apache2 ;systemctl restart rsyslog;while (true);do sleep 25;uptime;ps -a ;sleep 5;done"
+ENTRYPOINT /bin/bash -c "while (true);do socat UDP-LISTEN:514,fork UDP-CONNECT:syslog:514 ÜÜÜÜ;sleep 5;done & while (true);do sleep 2;apache2 -DFOREGROUND ;ps -a ;sleep 5;done"

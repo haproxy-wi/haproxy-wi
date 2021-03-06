@@ -1,5 +1,6 @@
 #FROM debian:buster
-
+FROM python:3.8-slim
+RUN pip install --no-cache-dir matplotlib pandas
 # Upgrade System
 #RUN apt-get update && apt-get upgrade -y
 
@@ -10,19 +11,20 @@
 #    libsasl2-dev libffi-dev python3-dev libssl-dev gcc rsync ansible \
 #    libpng-dev libqhull-dev libfreetype6-dev libagg-dev pkg-config -y
 
-FROM alpine
+#FROM alpine
 
 # clone latest haproxy-wi
-RUN apk add git && git clone https://github.com/Aidaho12/haproxy-wi.git /var/www/haproxy-wi
+#RUN apk add git
+RUN git clone https://github.com/Aidaho12/haproxy-wi.git /var/www/haproxy-wi && date
 
 # chg folder
 WORKDIR /var/www/
 
 
-RUN apk add cargo py3-cryptography musl-dev libffi-dev openssl-dev openssh py-virtualenv dos2unix apache2 cython libpq py3-pip python3-dev libffi-dev py3-matplotlib libc6-compat rsync gcc git g++ freetype-dev
+#RUN apk add cargo py3-cryptography  musl-dev libffi-dev openssl-dev openssh py-virtualenv dos2unix apache2 cython libpq py3-pip python3-dev libffi-dev py3-matplotlib libc6-compat rsync gcc git g++ freetype-dev && date
 
 # install python requirements
-RUN  pip3 install paramiko-ng configparser cython &&  pip3 install -r haproxy-wi/requirements.txt
+RUN  pip3 install paramiko-ng configparser cython &&  pip3 install -r haproxy-wi/requirements.txt && date
 
 
     # allow python files to be executed    # change file owner to www-data for Apache         # copy Apache config file and enable needed mods

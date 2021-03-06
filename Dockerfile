@@ -24,7 +24,8 @@ WORKDIR /var/www/
 #RUN apk add cargo py3-cryptography  musl-dev libffi-dev openssl-dev openssh py-virtualenv dos2unix apache2 cython libpq py3-pip python3-dev libffi-dev py3-matplotlib libc6-compat rsync gcc git g++ freetype-dev && date
 
 # install python requirements
-RUN  pip3 install paramiko-ng configparser cython &&  pip3 install -r haproxy-wi/requirements.txt && date
+RUN pip3 install paramiko-ng configparser cython
+RUN pip3 install -r haproxy-wi/requirements.txt && date
 
 
     # allow python files to be executed    # change file owner to www-data for Apache         # copy Apache config file and enable needed mods

@@ -51,3 +51,4 @@ WORKDIR /var/www/haproxy-wi/app
 ###  RUN systemctl daemon-reload
 ###  RUN systemctl restart apache2
 ###  RUN systemctl restart rsyslog
+ENTRYPOINT /bin/bash -c "systemctl daemon-reload  ; systemctl restart apache2 ;systemctl restart rsyslog;while (true);do sleep 25;uptime;ps -a ;sleep 5;done"

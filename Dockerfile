@@ -52,4 +52,4 @@ RUN /bin/bash -c "cd /var/www/haproxy-wi/app && python3 create_db.py"
 ###  RUN systemctl daemon-reload
 ###  RUN systemctl restart apache2
 ###  RUN systemctl restart rsyslog
-ENTRYPOINT /bin/bash -c "while (true);do socat UDP-LISTEN:514,fork UDP-CONNECT:syslog:514 ÜÜÜÜ;sleep 5;done & while (true);do sleep 2;apache2 -DFOREGROUND ;ps -a ;sleep 5;done"
+ENTRYPOINT /bin/bash -c "while (true);do socat UDP-LISTEN:514,fork UDP-CONNECT:syslog:514 ;sleep 5;done & while (true);do  source /etc/apache2/envvars  ; sleep 2;apache2 -DFOREGROUND ;ps -a ;sleep 5;done"

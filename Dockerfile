@@ -19,13 +19,13 @@ RUN apk add git && git clone https://github.com/Aidaho12/haproxy-wi.git /var/www
 WORKDIR /var/www/
 
 
-RUN apk add dos2unix apache2 cython py3-pip python3-dev py3-matplotlib libc6-compat rsync gcc git g++ freetype-dev
+RUN apk add dos2unix apache2 cython py3-pip python3-dev libffi-dev py3-matplotlib libc6-compat rsync gcc git g++ freetype-dev
 
 # install python requirements
 RUN  pip3 install paramiko-ng configparser cython &&  pip3 install -r haproxy-wi/requirements.txt
 
 
-# allow python files to be executed          # change file owner to www-data for Apache         # copy Apache config file and enable needed mods
+    # allow python files to be executed    # change file owner to www-data for Apache         # copy Apache config file and enable needed mods
 RUN chmod +x /var/www/haproxy-wi/app/*.py && chown -R www-data:www-data /var/www/haproxy-wi/ && cp /var/www/haproxy-wi/config_other/httpd/* /etc/apache2/sites-available/
 
 # replace httpd with apache2 in config from CentOS for anything, enable apache stuff , logrotate , syslog     # create needed folders

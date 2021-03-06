@@ -5,11 +5,11 @@ RUN pip install --no-cache-dir matplotlib pandas
 #RUN apt-get update && apt-get upgrade -y
 
 # Install needed packages for haproxy-wi
-#RUN apt-get install git net-tools lshw dos2unix apache2 \
-#    python3-pip g++ freetype2-demos libatlas-base-dev apache2-ssl-dev netcat python3 \
-#    python3-ldap libpq-dev python-dev libpython-dev libxml2-dev libxslt1-dev libldap2-dev \
-#    libsasl2-dev libffi-dev python3-dev libssl-dev gcc rsync ansible \
-#    libpng-dev libqhull-dev libfreetype6-dev libagg-dev pkg-config -y
+RUN apt-get install git net-tools lshw dos2unix apache2 \
+    python3-pip g++ freetype2-demos libatlas-base-dev apache2-ssl-dev netcat python3 \
+    python3-ldap libpq-dev python-dev libpython-dev libxml2-dev libxslt1-dev libldap2-dev \
+    libsasl2-dev libffi-dev python3-dev libssl-dev gcc rsync ansible \
+    libpng-dev libqhull-dev libfreetype6-dev libagg-dev pkg-config -y
 
 #FROM alpine
 
